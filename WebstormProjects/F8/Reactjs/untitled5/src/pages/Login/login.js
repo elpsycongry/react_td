@@ -2,6 +2,7 @@ import {useFormik} from "formik";
 import * as Yup from 'yup'
 import axios from "axios";
 import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 // Tạo rule for validation using yub package
 const validateFormLogin = Yup.object({
     email: Yup.string()
@@ -12,7 +13,7 @@ const validateFormLogin = Yup.object({
 })
 function Login() {
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
 
     const formLogin = useFormik({
         initialValues: {
@@ -30,6 +31,11 @@ function Login() {
                 const userLogin = users.filter(
                     user => user.email === values.email && user.password === values.password
                 )
+                if (userLogin > 0){
+                    alert("thanh con")
+                } else {
+                    navigate('/home')
+                }
                 console.log(userLogin)
             })
         }
